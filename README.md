@@ -1,10 +1,6 @@
 # MirrorDNA: learning strand-equivariant tokenizations of DNA
 
-MirrorDNA is a lightweight DNA language model with a **learned tokenizer that is exactly equivariant to the reverse
-complement**. A symmetric boundary router cuts a sequence and its reverse complement into mirror-image chunks, for
-every value of the model's parameters, so both strands of the same DNA always get the same tokens and the model never
-changes its prediction with the strand on strand-symmetric tasks. An orientation-aware head on the same backbone
-handles labels that do depend on the strand (promoters, splice sites, gene orientation).
+
 
 This repository contains the model, pretraining and fine-tuning code, the baselines and analyses of the paper, a
 pretrained model and a minimal test dataset.
