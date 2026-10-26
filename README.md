@@ -155,8 +155,8 @@ python shift_stability.py results_scale_tiny_RC-equivariant_caduceus10B results_
 ```bibtex
 @inproceedings{mirrordna2027,
   title     = {Learning Strand-Equivariant Tokenizations of {DNA} with {MirrorDNA}},
-  author    = {Datta, Nirjhor and Shatabda, Swakkhar and Bayzid, Md. Shamsuzzoha and Rahman, M. Sohel},
-  booktitle = {Research in Computational Molecular Biology (RECOMB)},
+  author    = {},
+  booktitle = {},
   year      = {2027}
 }
 ```
