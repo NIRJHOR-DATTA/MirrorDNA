@@ -9,7 +9,7 @@ handles labels that do depend on the strand (promoters, splice sites, gene orien
 This repository contains the model, pretraining and fine-tuning code, the baselines and analyses of the paper, a
 pretrained model and a minimal test dataset.
 
-> Paper: *Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA* (RECOMB 2027 submission).
+> Paper: *Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA* .
 
 ## Installation
 
