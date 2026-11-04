@@ -53,6 +53,40 @@ model.pooled_features(out, oriented=True)  # orientation-aware features, for str
 
 Fine-tuning with both heads, early stopping and evaluation on both strands: `rk.finetune(...)` (see `run_suite.py`).
 
+## Fine-tuning the released weights
+
+**On the paper's benchmarks** (no pretraining needed). `run_suite.py` takes any folder with a `pretrain_*.final.pt`,
+including the folders in `weights/`:
+
+```bash
+# pooled head, NT-18 + Genomic Benchmarks + gene-strand tasks, 3 seeds
+python run_suite.py weights/mirrordna-tiny --suite nt18 gb bio --seeds 0 1 2 --base-features
+# centre readout and per-task head selection on validation (main results of the paper)
+python finetune_center.py --main weights/mirrordna-tiny --full --seeds 0 1 2
+python select_head.py
+python merge_selected.py
+```
+
+Use `--tasks splice_sites_donors` (or any task name) and `--seeds 0` for a quick single run.
+
+**On your own data.** Sequences as strings, integer labels 0..K-1:
+
+```python
+import numpy as np, rcchunk as rk
+
+variant, config, model, name = rk.load_pretrained("weights/mirrordna-tiny", "cpu")[0]
+enc = lambda seqs: [rk.encode(s.upper()) for s in seqs]
+data = rk.split_val((enc(train_seqs), np.array(train_labels)),    # 10% of train becomes validation
+                    (enc(test_seqs), np.array(test_labels)), seed=0)
+result = rk.finetune(variant, config, data, "cuda", seed=0, lr=3e-4, epochs=10, bs=64, patience=3,
+                     init_state=model.state_dict(), use_base=True,
+                     oriented=False,          # True if the label depends on the strand (promoters, splice sites)
+                     save_preds="my_preds.npz")
+print(result["mcc"], result["mcc_rc_input"], result["flip_rate"])   # forward MCC, reverse-complement MCC, flips
+```
+
+`rk.finetune` returns the test metrics on both strands; `save_preds` stores the class probabilities for the test
+sequences as given (`p`) and reverse-complemented (`p_rc`). Sequences of equal length are batched together.
 
 ## Reproducing the paper
 
