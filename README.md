@@ -1,11 +1,10 @@
 # MirrorDNA: learning strand-equivariant tokenizations of DNA
 
 
-
 This repository contains the model, pretraining and fine-tuning code, the baselines and analyses of the paper, a
 pretrained model and a minimal test dataset.
 
-> Paper: *Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA* .
+> Paper: *Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA* (RECOMB 2027 submission).
 
 ## Installation
 
@@ -126,6 +125,18 @@ python frozen_strand_probe.py --report-only
 python shift_stability.py results_scale_tiny_RC-equivariant_caduceus10B results_scale_tiny_duplex_baseline_RCaug_caduceus10B
 ```
 
+**5. Centre readout and head selection** (main results). MirrorDNA is fine-tuned a second time with a head that also
+reads the per-base states at the centre of the window; for each task the head with the higher validation MCC is kept,
+so the test sets play no part in the choice:
+
+```bash
+python finetune_center.py --full --seeds 0 1 2   # copies the pretrained weights; NT-18, GB-9, gene strand
+python select_head.py                            # chooses the head per task on validation
+python merge_selected.py                         # final tables: averages, tasks won, Wilcoxon tests, strand table
+python suite_without_outliers.py results_scale_tiny_RC-equivariant_center/all_runs_selected.csv
+```
+
+
 ## Repository layout
 
 | file | content |
@@ -138,6 +149,7 @@ python shift_stability.py results_scale_tiny_RC-equivariant_caduceus10B results_
 | `bio_strand_tasks.py` | gene-strand tasks from RefSeq |
 | `bio_boundaries.py`, `splice_tokens.py`, `bio_sae.py`, `shift_stability.py` | tokenizer and biological analyses |
 | `frozen_strand_probe.py` | frozen embeddings of the two strands (retrieval, linear probe) |
+| `finetune_center.py`, `select_head.py`, `merge_selected.py` | centre readout and per-task head selection on validation |
 | `run_deepstarr.py` | DeepSTARR enhancer-activity regression |
 | `weights/` | pretrained MirrorDNA, MirrorDNA-duplex and the augmented control |
 | `stats_tables.py`, `lowlabel_stats.py`, `compare_long.py`, `collect_results.py`, `strand_gb.py`, `make_supplement.py`, `make_paper_assets.py` | tables, statistics and figures |
@@ -149,12 +161,7 @@ python shift_stability.py results_scale_tiny_RC-equivariant_caduceus10B results_
 ## Citation
 
 ```bibtex
-@inproceedings{mirrordna2027,
-  title     = {Learning Strand-Equivariant Tokenizations of {DNA} with {MirrorDNA}},
-  author    = {},
-  booktitle = {},
-  year      = {2027}
-}
+will be updated soon
 ```
 
 ## License
