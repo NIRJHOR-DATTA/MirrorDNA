@@ -18,6 +18,11 @@ Python 3.10 or 3.11 and PyTorch 2.1 or newer. For NVIDIA Blackwell GPUs (RTX 50x
 build: `pip install torch --index-url https://download.pytorch.org/whl/cu128`. The model itself is plain PyTorch
 (no custom kernels) and runs on Linux, Windows and macOS, on GPU or CPU.
 
+| model | description |
+|---|---|
+| 🤗 [nirjhor123/mirrordna-tiny](https://huggingface.co/nirjhor123/mirrordna-tiny) | MirrorDNA, the main model of the paper |
+| 🤗 [nirjhor123/mirrordna-duplex](https://huggingface.co/nirjhor123/mirrordna-duplex) | MirrorDNA-duplex (cross-strand gated encoder) |
+| 🤗 [nirjhor123/chunker-rcaug](https://huggingface.co/nirjhor123/chunker-rcaug) | augmented control: same architecture as MirrorDNA-duplex, not equivariant |
 ## Quick start (about 2 minutes)
 
 1. Check the equivariance guarantee on random weights (CPU, seconds):
