@@ -16,9 +16,10 @@ lowlabel_stats.md
 *.png
 *.pdf
 *.pt
+!weights/*/*.pt
 *.npz
 !example/data/*.npz
-__pycache__/
+case_study/__pycache__/
 *.pyc
 .ipynb_checkpoints/
 paper_assets/
