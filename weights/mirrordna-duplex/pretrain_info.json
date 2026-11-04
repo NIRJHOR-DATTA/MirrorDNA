@@ -1,0 +1,43 @@
+{
+ "steps": 10000,
+ "sec_per_step": 1.1670699715614319,
+ "tokens": 10485760000,
+ "chroms": [
+  "chr1",
+  "chr2",
+  "chr3",
+  "chr4",
+  "chr5",
+  "chr6",
+  "chr7",
+  "chr8",
+  "chr9",
+  "chr10",
+  "chr11",
+  "chr12",
+  "chr13",
+  "chr14",
+  "chr15",
+  "chr16",
+  "chr17",
+  "chr18",
+  "chr19",
+  "chr20",
+  "chr21",
+  "chr22",
+  "chrX"
+ ],
+ "mcfg": {
+  "d": 96,
+  "enc_layers": 4,
+  "main_layers": 4,
+  "dec_layers": 2,
+  "heads": 4,
+  "target_ratio": 4.0,
+  "enc": "duplex"
+ },
+ "lr": 0.0015,
+ "recipe": "caduceus",
+ "batch": 1024,
+ "accum": 4
+}

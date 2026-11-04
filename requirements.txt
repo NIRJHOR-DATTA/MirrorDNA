@@ -1,0 +1,15 @@
+# MirrorDNA (model, pretraining, fine-tuning, analyses)
+torch>=2.1            # Blackwell GPUs (RTX 50xx / PRO 6000): install the CUDA 12.8 build, see README
+numpy
+scipy
+pandas
+scikit-learn
+matplotlib
+tabulate
+datasets==3.6.0       # Nucleotide Transformer benchmark (revised) from the Hugging Face Hub
+huggingface_hub>=0.26,<1.0
+safetensors
+# Baselines only (run_public.py, bench_efficiency.py)
+transformers==4.46.3  # newer versions load DNABERT-2 as a plain BERT; keep this version
+einops
+# Caduceus baselines additionally need mamba-ssm and causal-conv1d (Linux / WSL, built for your GPU), see README

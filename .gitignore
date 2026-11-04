@@ -1,0 +1,24 @@
+# data and results are produced locally, never committed
+results*/
+results_csv/
+stats/
+hg38_data/
+gb_data/
+bio_tasks/
+ft_ckpt/
+preds/
+logs/
+*.csv
+*.jsonl
+*_report*.md
+compare_long.md
+lowlabel_stats.md
+*.png
+*.pdf
+*.pt
+*.npz
+!example/data/*.npz
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+paper_assets/
