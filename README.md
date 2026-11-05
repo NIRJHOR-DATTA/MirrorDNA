@@ -48,15 +48,16 @@ build: `pip install torch --index-url https://download.pytorch.org/whl/cu128`. T
 ```python
 import torch, rcchunk as rk
 
-variant, config, model, name = rk.load_pretrained("weights/mirrordna-tiny", "cuda")[0]
-x = torch.from_numpy(rk.encode("ACGT" * 256)).long()[None].cuda()   # [batch, length], A,C,G,T,N = 0..4
+device = "cuda" if torch.cuda.is_available() else "cpu"
+variant, config, model, name = rk.load_pretrained("weights/mirrordna-tiny", device)[0]
+x = torch.from_numpy(rk.encode("ACGT" * 256)).long()[None].to(device)   # [batch, length], A,C,G,T,N = 0..4
 out = model(x, decode=False)
 out["cut"]                                 # chunk boundaries (gap j = between base j and j+1)
 model.pooled_features(out)                 # strand-invariant sequence features
 model.pooled_features(out, oriented=True)  # orientation-aware features, for strand-dependent labels
 ```
 
-Fine-tuning with both heads, early stopping and evaluation on both strands: `rk.finetune(...)` (see `run_suite.py`).
+Fine-tuning: see *Fine-tuning the released weights* below.
 
 ## Fine-tuning the released weights
 
@@ -68,22 +69,22 @@ including the folders in `weights/`:
 python run_suite.py weights/mirrordna-tiny --suite nt18 gb bio --seeds 0 1 2 --base-features
 # centre readout and per-task head selection on validation (main results of the paper)
 python finetune_center.py --main weights/mirrordna-tiny --full --seeds 0 1 2
-python select_head.py
-python merge_selected.py
+python select_head.py --standard weights/mirrordna-tiny   # pooled vs centre readout, chosen on validation
 ```
 
-Use `--tasks splice_sites_donors` (or any task name) and `--seeds 0` for a quick single run.
+Use `--tasks splice_sites_donors` (or any task name) and `--seeds 0` for a quick single run. `merge_selected.py` builds the paper's comparison tables and needs the baseline results (see *Reproducing the paper*).
 
 **On your own data.** Sequences as strings, integer labels 0..K-1:
 
 ```python
-import numpy as np, rcchunk as rk
+import numpy as np, torch, rcchunk as rk
 
 variant, config, model, name = rk.load_pretrained("weights/mirrordna-tiny", "cpu")[0]
 enc = lambda seqs: [rk.encode(s.upper()) for s in seqs]
 data = rk.split_val((enc(train_seqs), np.array(train_labels)),    # 10% of train becomes validation
                     (enc(test_seqs), np.array(test_labels)), seed=0)
-result = rk.finetune(variant, config, data, "cuda", seed=0, lr=3e-4, epochs=10, bs=64, patience=3,
+device = "cuda" if torch.cuda.is_available() else "cpu"
+result = rk.finetune(variant, config, data, "device", seed=0, lr=3e-4, epochs=10, bs=64, patience=3,
                      init_state=model.state_dict(), use_base=True,
                      oriented=False,          # True if the label depends on the strand (promoters, splice sites)
                      save_preds="my_preds.npz")
