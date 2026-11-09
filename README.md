@@ -5,7 +5,7 @@ This repository contains the model, pretraining and fine-tuning code, the baseli
 pretrained model and a minimal test dataset.
 
 > Paper: *Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA* 
-
+    [![bioRxiv](https://img.shields.io/badge/bioRxiv-2026.11.04.764207-b31b1b.svg)](https://doi.org/10.64898/2026.11.04.764207)
 ## Installation
 
 ```bash
@@ -201,7 +201,14 @@ python suite_without_outliers.py results_scale_tiny_RC-equivariant_center/all_ru
 ## Citation
 
 ```bibtex
-will be updated soon
+@article{datta2026mirrordna,
+  title   = {Learning Strand-Equivariant Tokenizations of {DNA} with {MirrorDNA}},
+  author  = {Datta, Nirjhor and Shatabda, Swakkhar and Bayzid, Md. Shamsuzzoha and Rahman, M. Sohel},
+  journal = {bioRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.11.04.764207},
+  url     = {https://www.biorxiv.org/content/10.64898/2026.11.04.764207}
+}
 ```
 
 ## License
