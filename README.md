@@ -201,13 +201,13 @@ python suite_without_outliers.py results_scale_tiny_RC-equivariant_center/all_ru
 ## Citation
 
 ```bibtex
-@article{datta2026mirrordna,
-  title   = {Learning Strand-Equivariant Tokenizations of {DNA} with {MirrorDNA}},
-  author  = {Datta, Nirjhor and Shatabda, Swakkhar and Bayzid, Md. Shamsuzzoha and Rahman, M. Sohel},
-  journal = {bioRxiv},
-  year    = {2026},
-  doi     = {10.64898/2026.11.04.764207},
-  url     = {https://www.biorxiv.org/content/10.64898/2026.11.04.764207}
+@article{datta2026learning,
+  title={Learning Strand-Equivariant Tokenizations of DNA with MirrorDNA},
+  author={Datta, Nirjhor and Shatabda, Swakkhar and Bayzid, Md Shamsuzzoha and Rahman, M Sohel},
+  journal={bioRxiv},
+  pages={2026--11},
+  year={2026},
+  publisher={Cold Spring Harbor Laboratory}
 }
 ```
 
